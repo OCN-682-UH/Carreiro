@@ -39,3 +39,20 @@ view(PenguinsLog)
 
 
 
+ggplot(data = PenguinsLog, #assign it to a name
+               aes(x = species,
+                   y = log_body_mass)) + 
+  geom_boxplot(aes(color = species), width = 0.3, show.legend = FALSE) +
+  geom_jitter(aes(color = species), alpha = 0.5, show.legend = FALSE) +
+  scale_color_viridis_d() +
+  facet_wrap(~island) +
+ 
+  labs(x = "Penguin Species", 
+       y = "Log Scale of Penguin Body Mass (g)") +
+  theme_bw() +
+  theme(text = element_text(face = "bold"))
+
+ggsave(here("Week_04", "Output", "FemalePenguinMass_4aHomeworkPlot.png"), 
+       width = 12, height = 8)
+
+
