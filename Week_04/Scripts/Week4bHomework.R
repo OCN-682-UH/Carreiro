@@ -33,4 +33,24 @@ ChemClean_Data <- ChemData %>%
 
 
 
-view(ChemClean_Data)  
+## Create a Plot From the Data ###
+
+ggplot(ChemClean_Data, aes(x = Tide, y = Values, fill = Site)) + #Fills/groups the bars based on the site
+       geom_col(position = "dodge") + #bars will stack unless you use position dodge
+  facet_wrap(~Measured_Variable, scales = "free", #Facet wrapping based on the measured variables, each having an independent y scale
+             labeller = as_labeller( 
+                                   c("NN" = "Nitrate + Nitrite (umol/L)", 
+                                     "percent_sgd" = "% Submarine Groundwater", 
+                                     "pH" = "pH", 
+                                     "Phosphate" = "Phosphate (umol/L)", 
+                                     "Salinity" = "Salinity", 
+                                     "Silicate" = "Silicate (umol/L)", 
+                                     "TA" = "Total Alkalinity (umol/Kg)", 
+                                     "Temp_in" = "Temperature (\u00B0C)"))) +
+  scale_fill_manual(values = c("maroon4", "gold3")) +
+  labs(y = "Mean Values") + #Change the y axis colors
+  theme_bw() +
+  theme(text = element_text(face = "bold"))
+
+ggsave(here("Week_04", "Output", "Homework4b_Plot.png"), width = 10, height = 10)
+
